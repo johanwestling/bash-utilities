@@ -9,9 +9,9 @@ bash_select(){
 
   while [ $# -gt 0 ]; do
     if [ $index -eq 0 ]; then
-      bash_label "${1}"
-      bash_hint "Use UP/DOWN and ENTER to make your selection. (CTRL + C to cancel)"
-      bash_newline
+      bash_label "${1}" >&2
+      bash_hint "Use UP/DOWN and ENTER to make your selection. (CTRL + C to cancel)" >&2
+      bash_newline >&2
     else
       options+=("${1}")
     fi
@@ -30,9 +30,9 @@ bash_select_options(){
 
   for option in "${options[@]}"; do
     if [ $index -eq $selected ]; then
-      bash_select_option "${option}" true | bash_indent
+      bash_select_option "${option}" true | bash_indent >&2
     else
-      bash_select_option "${option}" | bash_indent
+      bash_select_option "${option}" | bash_indent >&2
     fi
 
     index=$(( $index + 1 ))
@@ -41,11 +41,11 @@ bash_select_options(){
 
 bash_select_options_clear(){
   for option in "${options[@]}"; do
-    tput el
-    tput cuu1
+    tput el >&2
+    tput cuu1 >&2
   done
 
-  tput el
+  tput el >&2
 }
 
 bash_select_keyboard_events(){
@@ -80,8 +80,10 @@ bash_select_keyboard_events(){
         # Enter arrow key
         value="${options[$selected]}"
 
-        bash_newline
-        bash_hint "Selected: ${value}"
+        bash_newline >&2
+        bash_hint "Selected: ${value}" >&2
+
+        echo "${value}"
         ;;
     esac
   done
