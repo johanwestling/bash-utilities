@@ -11,3 +11,9 @@ echo "select_value=${select_value}" | bash_indent
 echo "input_value=${input_value}" | bash_indent
 
 bash_newline
+
+bash_skip
+bash_done
+bash_fail
+
+bash_newline

@@ -52,12 +52,36 @@ bash_label(){
   echo -e "${bash_output_strong}${bash_output_color_green}→${bash_output_color_default} ${label}${bash_output_reset_all}"
 }
 
-bash_info(){
+bash_notice(){
   local label_text="${1}"
   local label_wrap=$(( $bash_output_wrap - 2 ))
   local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
 
-  echo -e "${bash_output_color_yellow}!${bash_output_color_gray} ${label}${bash_output_reset_all}"
+  echo -e "${bash_output_color_yellow}●${bash_output_color_gray} ${label}${bash_output_reset_all}"
+}
+
+bash_skip(){
+  local label_text="${1:-Skipped}"
+  local label_wrap=$(( $bash_output_wrap - 2 ))
+  local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
+
+  echo -e "${bash_output_color_green}↓${bash_output_reset_all} ${label}"
+}
+
+bash_done(){
+  local label_text="${1:-Done}"
+  local label_wrap=$(( $bash_output_wrap - 2 ))
+  local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
+
+  echo -e "${bash_output_color_green}●${bash_output_reset_all} ${label}"
+}
+
+bash_fail(){
+  local label_text="${1:-Failed}"
+  local label_wrap=$(( $bash_output_wrap - 2 ))
+  local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
+
+  echo -e "${bash_output_color_red}●${bash_output_reset_all} ${label}"
 }
 
 bash_hint(){
