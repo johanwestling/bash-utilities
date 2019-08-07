@@ -75,7 +75,7 @@ bash_select_option(){
   local selected="${2}"
 
   if [ -n "${selected}" ]; then
-    echo -e "${bash_output_strong}${bash_output_color_green}→${bash_output_color_default}${bash_output_reset_all} ${label}"
+    echo -e "${bash_output_strong}${bash_output_color_yellow}→${bash_output_color_default}${bash_output_reset_all} ${label}"
   else
     echo -e "  ${label}"
   fi

@@ -22,7 +22,6 @@ bash_input(){
 
   bash_newline >&2
   bash_hint "Entered: ${value}" >&2
-  bash_newline >&2
 
   echo "${value}"
 }
@@ -48,7 +47,6 @@ bash_select(){
 
   bash_select_options
   bash_select_keyboard_events
-  bash_newline
 }
 
 bash_select_options(){
@@ -108,7 +106,6 @@ bash_select_keyboard_events(){
 
         bash_newline >&2
         bash_hint "Selected: ${value}" >&2
-        bash_newline >&2
 
         echo "${value}"
         ;;
