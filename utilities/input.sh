@@ -3,14 +3,26 @@ source "${bash_root:-.}/utilities/output.sh"
 
 bash_input(){
   local label="${1}"
+  local hint="${2}"
   local value=""
 
   while [ "${value}" = "" ]; do
     bash_label "${label}" >&2
+    if [ -n "${hint}" ]; then
+      bash_hint "${hint} (CTRL + C to cancel)" >&2
+    fi
+    bash_newline >&2
+
     tput cuf 2 >&2
     read value >&2
 
     if [ -z "${value}" ]; then
+      if [ -n "${hint}" ]; then
+        tput el >&2
+        tput cuu1 >&2
+        tput el >&2
+        tput cuu1 >&2
+      fi
       tput el >&2
       tput cuu1 >&2
       tput el >&2
