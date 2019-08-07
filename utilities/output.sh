@@ -43,6 +43,22 @@ bash_indent() {
   sed -e 's/^/  /'
 }
 
+bash_title(){
+  local label_text="${1}"
+  local label_wrap=$bash_output_wrap
+  local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
+
+  local line_length=${#label_text}
+  if [ ${line_length} -gt $label_wrap ]; then
+    line_length=$label_wrap
+  fi
+  local line_border=$(eval printf "─"'%.0s' {1..$line_length})
+
+  bash_newline
+  echo -e "${bash_output_strong}${label}${bash_output_reset_all}"
+  echo -e "${bash_output_strong}${bash_output_color_green}${line_border}${bash_output_reset_all}"
+}
+
 bash_label(){
   local label_text="${1}"
   local label_wrap=$(( $bash_output_wrap - 2 ))
@@ -65,7 +81,7 @@ bash_skip(){
   local label_wrap=$(( $bash_output_wrap - 2 ))
   local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
 
-  echo -e "${bash_output_color_green}↓${bash_output_reset_all} ${label}"
+  echo -e "${bash_output_color_green}↓${bash_output_reset_all} ${bash_output_strong}${label}${bash_output_reset_all}"
 }
 
 bash_done(){
@@ -73,7 +89,7 @@ bash_done(){
   local label_wrap=$(( $bash_output_wrap - 2 ))
   local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
 
-  echo -e "${bash_output_color_green}●${bash_output_reset_all} ${label}"
+  echo -e "${bash_output_color_green}●${bash_output_reset_all} ${bash_output_strong}${label}${bash_output_reset_all}"
 }
 
 bash_fail(){
@@ -81,7 +97,7 @@ bash_fail(){
   local label_wrap=$(( $bash_output_wrap - 2 ))
   local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
 
-  echo -e "${bash_output_color_red}●${bash_output_reset_all} ${label}"
+  echo -e "${bash_output_color_red}●${bash_output_reset_all} ${bash_output_strong}${label}${bash_output_reset_all}"
 }
 
 bash_hint(){
