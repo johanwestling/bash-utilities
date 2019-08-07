@@ -15,6 +15,7 @@ bash_input(){
       tput cuu1 >&2
       tput el >&2
       tput cuu1 >&2
+      tput el >&2
 
       bash_notice "Please enter a value to continue. (CTRL + C to cancel)" >&2
     fi
