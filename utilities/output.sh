@@ -52,6 +52,14 @@ bash_label(){
   echo -e "${bash_output_strong}${bash_output_color_green}→${bash_output_color_default} ${label}${bash_output_reset_all}"
 }
 
+bash_info(){
+  local label_text="${1}"
+  local label_wrap=$(( $bash_output_wrap - 2 ))
+  local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
+
+  echo -e "${bash_output_color_yellow}!${bash_output_color_gray} ${label}${bash_output_reset_all}"
+}
+
 bash_hint(){
   local label_text="${1}"
   local label_wrap=$(( $bash_output_wrap - 2 ))

@@ -1,15 +1,41 @@
 #!/bin/bash
 source "${bash_root:-.}/utilities/output.sh"
 
+bash_input(){
+  local label="${1}"
+  local value=""
+
+  while [ "${value}" = "" ]; do
+    bash_label "${label}" >&2
+    tput cuf 2 >&2
+    read value >&2
+
+    if [ -z "${value}" ]; then
+      tput el >&2
+      tput cuu1 >&2
+      tput el >&2
+      tput cuu1 >&2
+
+      bash_info "Please enter a value to continue. (CTRL + C to cancel)" >&2
+    fi
+  done
+
+  bash_newline >&2
+  bash_hint "Entered: ${value}" >&2
+  bash_newline >&2
+
+  echo "${value}"
+}
+
 bash_select(){
   local value=""
   local index=0
   local selected=0
   local options=()
 
+  bash_label "${1}" >&2
   while [ $# -gt 0 ]; do
     if [ $index -eq 0 ]; then
-      bash_label "${1}" >&2
       bash_hint "Use UP/DOWN and ENTER to make your selection. (CTRL + C to cancel)" >&2
       bash_newline >&2
     else
@@ -82,6 +108,7 @@ bash_select_keyboard_events(){
 
         bash_newline >&2
         bash_hint "Selected: ${value}" >&2
+        bash_newline >&2
 
         echo "${value}"
         ;;
