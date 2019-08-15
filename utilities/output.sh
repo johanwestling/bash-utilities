@@ -39,8 +39,10 @@ bash_newline(){
   echo -e ""
 }
 
-bash_indent() {
-  sed -e 's/^/  /'
+bash_indent(){
+  while read line; do
+    echo -e "${line}" | sed 's/^/  /'
+  done
 }
 
 bash_title(){
@@ -105,7 +107,7 @@ bash_hint(){
   local label_wrap=$(( $bash_output_wrap - 2 ))
   local label=$(echo -e "${label_text}" | fold -sw $label_wrap)
 
-  echo -e "  ${bash_output_color_gray}${label}${bash_output_reset_all}"
+  echo -e "${bash_output_color_gray}${label}${bash_output_reset_all}" | bash_indent
 }
 
 bash_select_option(){
